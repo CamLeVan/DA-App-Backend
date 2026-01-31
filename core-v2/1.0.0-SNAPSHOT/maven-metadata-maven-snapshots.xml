@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>com.globits</groupId>
+  <artifactId>core-v2</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <timestamp>20211024.172040</timestamp>
+      <buildNumber>69</buildNumber>
+    </snapshot>
+    <lastUpdated>20211024172040</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>1.0.0-20211024.172040-69</value>
+        <updated>20211024172040</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>

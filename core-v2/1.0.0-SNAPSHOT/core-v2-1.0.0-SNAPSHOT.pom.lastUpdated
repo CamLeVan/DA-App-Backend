@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Jul 22 09:25:59 ICT 2022
+https\://repo.maven.apache.org/maven2/.lastUpdated=1658456759593
+http\://0.0.0.0/.error=Could not transfer artifact com.globits\:core-v2\:pom\:1.0.0-SNAPSHOT from/to maven-default-http-blocker (http\://0.0.0.0/)\: Blocked mirror for repositories\: [maven-snapshots (http\://www.globits.net\:8081/repository/maven-snapshots/, default, releases+snapshots)]
+@default-maven-default-http-blocker-http\://0.0.0.0/.lastUpdated=1658454983147
+https\://repo.maven.apache.org/maven2/.error=
