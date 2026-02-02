@@ -1,6 +1,5 @@
 package com.globits.listeners;
 
-
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,11 +36,11 @@ public class ApplicationStartupListener implements ApplicationListener<ContextRe
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private Environment env;
-//	@Autowired
-//	private ResourceDefService resDefService;
+	// @Autowired
+	// private ResourceDefService resDefService;
 
 	private static final Logger logger = LoggerFactory.getLogger(ApplicationStartupListener.class);
 
@@ -55,7 +54,7 @@ public class ApplicationStartupListener implements ApplicationListener<ContextRe
 		logger.info("Application started.");
 
 		eventFired = true;
-		
+
 		try {
 			createRoles();
 			createAdminUser();
@@ -63,7 +62,7 @@ public class ApplicationStartupListener implements ApplicationListener<ContextRe
 			e.printStackTrace();
 		}
 
-		createAdminUser();		
+		createAdminUser();
 	}
 
 	@Override
@@ -80,24 +79,24 @@ public class ApplicationStartupListener implements ApplicationListener<ContextRe
 
 		userDto = new UserDto();
 		userDto.setUsername(com.globits.core.Constants.USER_ADMIN_USERNAME);
-		//userDto.setPassword(SecurityUtils.getHashPassword("admin"));
+		// userDto.setPassword(SecurityUtils.getHashPassword("admin"));
 		userDto.setPassword("admin");
 		userDto.setEmail("admin@globits.net");
 		userDto.setActive(true);
 		userDto.setDisplayName("Admin User");
 
 		Role role = roleService.findByName(com.globits.core.Constants.ROLE_ADMIN);
-		
+
 		userDto.getRoles().addAll(Arrays.asList(new RoleDto(role)));
-		
+
 		PersonDto person = new PersonDto();
 		person.setGender("M");
 		person.setFirstName("Admin");
 		person.setLastName("User");
 		person.setDisplayName("Admin User");
-		
+
 		userDto.setPerson(person);
-		
+
 		try {
 			userService.save(userDto);
 		} catch (Exception ex) {
@@ -119,10 +118,10 @@ public class ApplicationStartupListener implements ApplicationListener<ContextRe
 		while (streamReader.hasNext()) {
 			if (streamReader.isStartElement()) {
 				switch (streamReader.getLocalName()) {
-				case "name": {
-					roleNames.add(streamReader.getElementText());
-					break;
-				}
+					case "name": {
+						roleNames.add(streamReader.getElementText());
+						break;
+					}
 				}
 			}
 			streamReader.next();

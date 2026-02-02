@@ -43,8 +43,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
     @Autowired
     private Environment env;
-    
-    
+
     @Autowired
     @Qualifier("authenticationManagerBean")
     private AuthenticationManager authenticationManager;
@@ -55,9 +54,9 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Value("classpath:data.sql")
     private Resource dataScript;
 
-	@Autowired
-	private DataSource dataSource;
-	
+    @Autowired
+    private DataSource dataSource;
+
     @Override
     public void configure(final AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
         oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
@@ -65,19 +64,22 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
     @Override
     public void configure(final ClientDetailsServiceConfigurer clients) throws Exception {
-    	
-//    	JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(dataSource);//Có thể implement 1 cái ClientDetailService khác
-//    	PasswordEncoder passwordEncoder = new  BCryptPasswordEncoder();
-//    	jdbcClientDetailsService.setPasswordEncoder(passwordEncoder);
-//    	clients.withClientDetails(jdbcClientDetailsService);
-    	clients.jdbc(dataSource);//Dùng cái này cũng được
+
+        // JdbcClientDetailsService jdbcClientDetailsService = new
+        // JdbcClientDetailsService(dataSource);//Có thể implement 1 cái
+        // ClientDetailService khác
+        // PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        // jdbcClientDetailsService.setPasswordEncoder(passwordEncoder);
+        // clients.withClientDetails(jdbcClientDetailsService);
+        clients.jdbc(dataSource);// Dùng cái này cũng được
     }
 
     @Override
     public void configure(final AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         final TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
         tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer()));
-        endpoints.tokenStore(tokenStore()).tokenEnhancer(tokenEnhancerChain).authenticationManager(authenticationManager);
+        endpoints.tokenStore(tokenStore()).tokenEnhancer(tokenEnhancerChain)
+                .authenticationManager(authenticationManager);
     }
 
     @Bean
@@ -111,22 +113,21 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
         return populator;
     }
 
-
-//    @Bean
-//    public DataSource dataSource() {
-//        final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//        dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
-//        dataSource.setUrl(env.getProperty("jdbc.url"));
-//        dataSource.setUsername(env.getProperty("jdbc.user"));
-//        dataSource.setPassword(env.getProperty("jdbc.pass"));
-//        return dataSource;
-//    }
+    // @Bean
+    // public DataSource dataSource() {
+    // final DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    // dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
+    // dataSource.setUrl(env.getProperty("jdbc.url"));
+    // dataSource.setUsername(env.getProperty("jdbc.user"));
+    // dataSource.setPassword(env.getProperty("jdbc.pass"));
+    // return dataSource;
+    // }
 
     @Bean
     public TokenStore tokenStore() {
         return new JdbcTokenStore(dataSource);
     }
-    
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
